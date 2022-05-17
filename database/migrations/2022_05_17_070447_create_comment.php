@@ -17,10 +17,10 @@ class CreateComment extends Migration
             $table->id();
             $table->string("nama", 200);
             $table->string("email", 200);
-            $table->integer("news_id");
+            $table->unsignedBigInteger("news_id");
             $table->timestamps();
 
-            $table->foreign("news_id")->references("id")->onDelete("cascade")->onUpdate("cascade");
+            $table->foreign("news_id")->references("id")->on("news")->onDelete("cascade")->onUpdate("cascade");
         });
     }
 

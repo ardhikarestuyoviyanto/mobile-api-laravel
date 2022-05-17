@@ -20,7 +20,7 @@ class CreateNews extends Migration
             $table->mediumText("isi");
             $table->string("gambar", 200);
             $table->integer("dilihat");
-            $table->unsignedInteger("user_id");
+            $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("kategori_id");
             $table->timestamps();
 
