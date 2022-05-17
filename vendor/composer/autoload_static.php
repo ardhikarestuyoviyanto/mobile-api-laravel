@@ -186,8 +186,8 @@ class ComposerStaticInitc551bbba513d05c45dfb066c0e689b88
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Whoops\\' => 
         array (
@@ -331,8 +331,8 @@ class ComposerStaticInitc551bbba513d05c45dfb066c0e689b88
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -528,7 +528,13 @@ class ComposerStaticInitc551bbba513d05c45dfb066c0e689b88
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Models\\Comment' => __DIR__ . '/../..' . '/app/Models/Comment.php',
+        'App\\Models\\Kategori' => __DIR__ . '/../..' . '/app/Models/Kategori.php',
+        'App\\Models\\Like' => __DIR__ . '/../..' . '/app/Models/Like.php',
+        'App\\Models\\News' => __DIR__ . '/../..' . '/app/Models/News.php',
+        'App\\Models\\Tag' => __DIR__ . '/../..' . '/app/Models/Tag.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\Users' => __DIR__ . '/../..' . '/app/Models/Users.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
