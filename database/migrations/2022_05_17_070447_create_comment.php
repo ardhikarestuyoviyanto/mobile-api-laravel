@@ -17,6 +17,7 @@ class CreateComment extends Migration
             $table->id();
             $table->string("nama", 200);
             $table->string("email", 200);
+            $table->mediumText("value_comment");
             $table->unsignedBigInteger("news_id");
             $table->timestamps();
 
