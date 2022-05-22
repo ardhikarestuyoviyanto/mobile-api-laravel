@@ -34,4 +34,54 @@
 - Show List Berita By Author 
 
 # Design Rest Api
-....
+1. Authentification
+
+- Register
+
+``` bash
+-- POST
+------------------------
+/auth/register
+--------------------------
+-- Body Request
+{
+    "nama": "nama mu",
+    "alamat": "alamat mu",
+    "email": "email mu",
+    "password": "password mu"
+}
+
+-- Response Success (Code 200)
+{
+    "message": "registrasi akun berhasil"
+}
+
+-- Response Bad (Code 400)
+{
+    "message": "email telah digunakan"
+}
+
+```
+- Login
+
+``` bash
+-- POST
+------------------------
+/auth/login
+--------------------------
+-- Body Request
+{
+    "email": "email mu",
+    "password": "password mu"
+}
+
+-- Response Success (Code 200)
+{
+    "message": "user succesfully log in",
+    "token": "JWT TOKEN"
+}
+
+-- Response Bad (Code 400)
+{
+    "message": "email atau password salah"
+}
