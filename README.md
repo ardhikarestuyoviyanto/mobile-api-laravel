@@ -2,8 +2,16 @@
 - forked this repository
 - git clone [your repository link after forked this repo]
 - cd mobile-api-laravel
+- Install PHP dependencies
+    ```sh
+    composer install
+    ```
 - create file .env
 - copy value file from .env.example and paste to .env
+- Generate key
+    ```sh
+    php artisan key:generate
+    ```
 - configurate database setting in .env file (line 11 - line 16)
 - open terminal in this project, and run
 ```zsh
