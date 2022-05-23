@@ -4,25 +4,29 @@
 - cd mobile-api-laravel
 - Install PHP dependencies
     ```sh
-    composer install
+        composer install
     ```
 - create file .env
 - copy value file from .env.example and paste to .env
 - Generate key
     ```sh
-    php artisan key:generate
+        php artisan key:generate
     ```
 - configurate database setting in .env file (line 11 - line 16)
 - open terminal in this project, and run
-```zsh
-    php artisan migrate --seed -> running migrate with generate seeder
-    php artisan migrate -> running migrate only
-```
+    ```sh
+        php artisan migrate --seed -> running migrate with generate seeder
+        php artisan migrate -> running migrate only
+    ```
+- create jwt secret
+    ``` sh
+        php artisan jwt:secret
+    ```
 - run php artisan serve and access http://127.0.0.1:8000/api in your browser
 
 # MVP (Fitur) Project
 ## Anonim Users
-- Register
+- Register 
 - Membaca Berita
 - Melakukan Komen Berita
 - Melakukan Like Pada Berita
@@ -34,9 +38,9 @@
 - Show List Berita By Author 
 
 # Design Rest Api
-1. Authentification
+1. Authentification (DONE)
 
-- Register
+- Register (DONE)
 
 ``` bash
 # POST
@@ -62,7 +66,7 @@
 }
 
 ```
-- Login
+- Login (DONE)
 
 ``` bash
 # POST
@@ -243,9 +247,9 @@
     "message": "sesi anda telah habis, silahkan login ulang"
 }
 ```
-3. Anonim Users
+3. Anonim Users (DONE)
 
-- Get All News
+- Get All News  (DONE)
 ``` bash
 # GET
 # --------------------
@@ -259,18 +263,20 @@
         {
             "id": "INT"
             "judul":"STRING",
-            "isi":"STRING",
+            "tag_name":"STRING", # with separator (,) ex : viral,medsos,
+            "isi": "STRING", 
             "gambar":"STRING",
             "dilihat":"INT",
+            "author_name": "STRING",
             "kategori_name":"STRING",
-            "tag_name":"STRING", # with separator (,) ex : viral,medsos 
+            "kategori_id": "STRING",
             "total_like": "INT",
         },
     ]
 }
 ```
 
-- Get By Id News (Anonim Read News)
+- Get By Id News (Anonim Read News) (DONE)
 ``` bash
 # GET
 # ----------------------
@@ -279,28 +285,29 @@
 
 # Response Success (Code 200)
 {
-    "news":{
+    "data":{
         "id": "INT"
         "judul":"STRING",
+        "tag_name":"STRING", # with separator (,) ex : viral,medsos 
         "isi":"STRING",
         "gambar":"STRING",
         "dilihat":"INT",
         "kategori_name":"STRING",
-        "tag_name":"STRING", # with separator (,) ex : viral,medsos 
+        "author_name": "STRING",
         "total_like": "INT",
+        "comment":{
+            [
+                {
+                    "nama": "STRING",
+                    "email": "STRING",
+                    "value_comment": "STRING"
+                },
+            ]
+        }
     },
-    "comment":{
-        [
-            {
-                "nama": "STRING",
-                "email": "STRING",
-                "value_comment": "STRING"
-            },
-        ]
-    }
 }
 ```
-- Create Comment From News
+- Create Comment From News  (DONE)
 
 ``` bash
 # POST
@@ -318,10 +325,10 @@
 
 # Response Success Code(201)
 {
-    "message": "Anda berhasil berkomentar"
+    "message": "Komentar anda berhasil dipublish"
 }
 ```
-- Like News
+- Like News (DONE)
 ``` bash
 # POST
 # ----------------
@@ -336,7 +343,7 @@
 
 # Response Success Code(201)
 {
-    "message": "Like Berita Sukses"
+    "message": "Like Berita Berhasil"
 }
 
 # Response Bad Request Code (400)
@@ -344,27 +351,56 @@
     "message": "Anda telah melakukan like pada berita ini"
 }
 ```
-- Get News By Kategori
+- Get News By Kategori  (DONE)
 
 ``` bash
 # GET
 # --------------------------
-# /news/kategori/:id
+# /search/kategori/:id
 # --------------------------
 
 # Response Success (Code 200)
 {
+    "kategori_name": "Politik",
     "total": "INT",
     "data": [
         {
             "id": "INT"
             "judul":"STRING",
+            "tag_name":"STRING", # with separator (,) ex : viral,medsos 
             "isi":"STRING",
             "gambar":"STRING",
-            "dilihat":"INT",
-            "kategori_name":"STRING",
+            "author_name": "STRING",
+            "kategori_name": "STRING",
+            "kategori_id": "INT",
+            "total_like": "INT"
+        },
+    ]
+}
+```
+- Get News By Tag Name  (DONE)
+
+``` bash
+# GET
+# --------------------------
+# /search/tag
+# --------------------------
+
+# Response Success (Code 200)
+{
+    "tag_name": "Politik",
+    "total": "INT",
+    "data": [
+        {
+            "id": "INT"
+            "judul":"STRING",
             "tag_name":"STRING", # with separator (,) ex : viral,medsos 
-            "total_like": "INT",
+            "isi":"STRING",
+            "gambar":"STRING",
+            "author_name": "STRING",
+            "kategori_name": "STRING",
+            "kategori_id": "INT",
+            "total_like": "INT"
         },
     ]
 }

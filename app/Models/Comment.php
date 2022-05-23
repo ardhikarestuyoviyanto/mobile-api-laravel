@@ -15,6 +15,7 @@ class Comment extends Model
         "nama",
         "email",
         "news_id",
+        "value_comment",
         "created_at",
         "updated_at"
     ];

@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         // run seeder
         $this->call([
-            // KategoriSeeder::class,
-            // TagSeeder::class,
+            KategoriSeeder::class,
+            TagSeeder::class,
             // if you want generate user uncomment this
             UserSeeder::class
         ]);
