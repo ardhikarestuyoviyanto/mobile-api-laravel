@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -12,74 +14,71 @@ class AuthController extends Controller
     {
         $validasi = Validator::make($request->all(), [
             'email' => 'required',
-            'password' => 'required|min:6',
+            'password' => 'required',
         ]);
 
         if ($validasi->fails()) {
-            return $this->error($validasi->errors()->first());
+            return response()->json([
+                "message"=> "ada inputan yang tidak sesuai"
+            ], Response::HTTP_BAD_REQUEST);
         }
 
-        $user = User::where('email', $request->email)->first();
-        if ($user) {
-            if (password_verify($request->password, $user->password)) {
-                return $this->success($user);
-            } else {
-                return $this->error("Password salah");
-            }
+        $data = [
+            'email' => $request->post('email'),
+            'password' => $request->post('password')
+        ];
+
+        if (!$token = auth('api')->attempt($data)){
+
+            return response()->json([
+                "message"=>"email atau password saalah"
+            ], Response::HTTP_BAD_REQUEST);
+
         }
-        return $this->error("User tidak di temukan");
+
+        return $this->respondWithToken($token);
     }
 
+    protected function respondWithToken($token){
+        
+        return response()->json([
+            'token' => $token,
+        ], Response::HTTP_OK);
+    }
 
     public function register(Request $request) {
         $validasi = Validator::make($request->all(), [
-            'name' => 'required',
+            'nama' => 'required',
             'alamat' => 'required',
-            'email' => 'required|unique:users',
-            'password' => 'required|min:6',]);
-
-        if ($validasi->fails())
-        {
-            return $this->error($validasi->errors()->first());
-        }
-
-        $user = User::create(array_merge($request->all(), [
-            'password' => bcrypt($request->password)
-        ]));
-
-        if ($user) {
-            return $this->success($user, 'selamat datang ' . $user->name);
-        } else {
-            return $this->error("Terjadi kesalahan");
-        }
-    }
-
-    public function update(Request $request, $id)
-    {
-        $user = User::where('id', $id)->first();
-        if($user){
-
-            $user->update($request->all());
-            return $this->success($user);
-        }
-
-        return $this->error("Error User tidak ditemukan");
-    }
-
-    public function success($data, $message = "success")
-    {
-        return response()->json([
-            'code' => 200,
-            'message' => $message,
-            'data' => $data
+            'password' => 'required',
+            'email' => 'required'
         ]);
+
+        if ($validasi->fails()) {
+            return response()->json([
+                "message"=> "ada inputan yang tidak sesuai"
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        if (count(User::where('email', $request->post('email'))->get()) > 0){
+            return response()->json([
+                "message"=> "email telah digunakan"
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $data = [
+            'email' => $request->post('email'),
+            'password' => Hash::make($request->post('password')),
+            'nama' => $request->post('nama'),
+            'alamat' => $request->post('alamat')
+        ];
+
+        User::create($data);
+
+        return response()->json([
+            "message"=>"Registrasi akun berhasil"
+        ], Response::HTTP_OK);
+
     }
 
-    public function error($message)
-    {
-        return response()->json([
-            'code' => 400,
-            'message' => $message
-        ], 400);
-    }
 }
