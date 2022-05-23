@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable{
+class User extends Authenticatable implements JWTSubject{
 
     protected $table = "users";
     protected $fillable = [
@@ -14,7 +15,8 @@ class User extends Authenticatable{
         "alamat",
         "email",
         "created_at",
-        "updated_at"
+        "updated_at",
+        "password"
     ];
     protected $hidden = [
         "password"
@@ -23,4 +25,19 @@ class User extends Authenticatable{
     public function news(){
         return $this->hasMany(News::class);
     }
+
+    public function getJWTIdentifier(){
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims() {
+        return [
+            'data' => [
+                'id' => $this->id,
+                'nama' => $this->nama,
+                'email' => $this->email,
+            ]
+        ];
+    }  
+
 }
