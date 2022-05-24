@@ -4,9 +4,12 @@ use App\Http\Controllers\AnonimNewsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SignedNewsControlller;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,3 +48,17 @@ Route::prefix('search')->group(function(){
     # By Tag Name
     Route::get('tag', [SearchController::class, 'getnewsbytagname']);
 });
+
+# Signed Users
+Route::group(['middleware'=>'jwt.verify'], function(){
+    Route::post('user/news', [SignedNewsControlller::class, 'createnews']);
+    Route::get('user/news', [SignedNewsControlller::class, 'getallnews']);
+    Route::post('user/news/{id}', [SignedNewsControlller::class, 'updatenews']);
+    Route::get('user/news/{id}', [SignedNewsControlller::class, 'getnewsbyid']);
+    Route::delete('user/news/{id}', [SignedNewsControlller::class, 'deletenews']);
+}); 
+
+# Get Kategori
+Route::get('kategori', [KategoriController::class, 'getallkategori']);
+# Get Tag
+Route::get('tag', [TagController::class, 'getalltag']);
