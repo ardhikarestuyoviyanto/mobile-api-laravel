@@ -44,7 +44,7 @@ Route::prefix('search')->group(function(){
     # By Kategori ID
     Route::get('kategori/{id}', [SearchController::class, 'getnewsbykategori']);
     # By Tag Name
-    Route::get('tag', [SearchController::class, 'getnewsbytagname']);
+    Route::post('tag', [SearchController::class, 'getnewsbytagname']);
 });
 
 # Signed Users

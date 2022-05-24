@@ -57,7 +57,7 @@ class SearchController extends Controller{
 
         $data = array();
 
-        $tagname = $request->get('tag_name');
+        $tagname = $request->post('tag_name');
         $news = News::getbytagnews($tagname);
 
         foreach($news as $n){
