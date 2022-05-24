@@ -16,6 +16,8 @@ class SearchController extends Controller{
         $id = $request->segment(4);
         $news = News::getbykategorinews($id);
 
+        $data = array();
+
         foreach($news as $n){
 
             $data[] = [
@@ -52,6 +54,8 @@ class SearchController extends Controller{
                 "message" => "invalid form input"
             ], Response::HTTP_BAD_REQUEST);
         }
+
+        $data = array();
 
         $tagname = $request->post('tag_name');
         $news = News::getbytagnews($tagname);
