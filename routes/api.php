@@ -25,6 +25,7 @@ Route::get('/', [HomeController::class, 'index']);
 Route::prefix('auth')->group(function(){
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
+    Route::get('logout', [AuthController::class, 'logout'])->middleware('jwt.verify');
 });
 
 # Anonim Users

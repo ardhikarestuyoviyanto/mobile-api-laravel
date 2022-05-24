@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -31,7 +32,7 @@ class AuthController extends Controller
         if (!$token = auth('api')->attempt($data)){
 
             return response()->json([
-                "message"=>"email atau password saalah"
+                "message"=>"email atau password salah"
             ], Response::HTTP_BAD_REQUEST);
 
         }
@@ -79,6 +80,13 @@ class AuthController extends Controller
             "message"=>"Registrasi akun berhasil"
         ], Response::HTTP_OK);
 
+    }
+
+    public function logout(Request $request){
+        JWTAuth::invalidate($request->bearerToken());
+        return response()->json([
+            "message" => "User successfully logged out"
+        ], Response::HTTP_OK);
     }
 
 }
