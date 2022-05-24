@@ -14,6 +14,8 @@ class AnonimNewsController extends Controller{
         
         $news = News::getallnews();
 
+        $data = array();
+
         foreach($news as $n){
 
             $data[] = [
