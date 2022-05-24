@@ -22,6 +22,10 @@
     ``` sh
         php artisan jwt:secret
     ```
+- Storage link
+    ``` sh
+        php artisan storage:link    
+    ```
 - run php artisan serve and access http://127.0.0.1:8000/api in your browser
 
 # MVP (Fitur) Project
