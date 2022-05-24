@@ -64,5 +64,13 @@ class News extends Model
         ->get(["news.id", "judul", "tag_name", "isi", "gambar", "dilihat", "users.nama AS author_name", "kategori.name AS kategori_name", "kategori.id AS kategori_id"]);
     }
 
+    static function getallnewssigned($user_id){
+        return static::join('kategori', 'kategori.id', '=', 'news.kategori_id')
+        ->join('users', 'users.id', '=', 'news.user_id')
+        ->where('users.id', $user_id)
+        ->orderBy("id", "DESC")
+        ->get(["news.id", "judul", "tag_name", "isi", "gambar", "dilihat", "users.nama AS author_name", "kategori.name AS kategori_name", "kategori.id AS kategori_id"]);
+    }
+
 }
 
