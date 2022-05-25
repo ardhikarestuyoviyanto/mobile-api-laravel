@@ -44,7 +44,7 @@ class AuthController extends Controller
         
         return response()->json([
             'token' => $token,
-            'nama' => auth('api')->user->nama
+            'nama' => auth('api')->user()->nama
         ], Response::HTTP_OK);
     }
 
