@@ -14,7 +14,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validasi = Validator::make($request->all(), [
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
 
@@ -44,6 +44,7 @@ class AuthController extends Controller
         
         return response()->json([
             'token' => $token,
+            'nama' => auth('api')->user->nama
         ], Response::HTTP_OK);
     }
 
@@ -52,7 +53,7 @@ class AuthController extends Controller
             'nama' => 'required',
             'alamat' => 'required',
             'password' => 'required',
-            'email' => 'required'
+            'email' => 'required|email'
         ]);
 
         if ($validasi->fails()) {
